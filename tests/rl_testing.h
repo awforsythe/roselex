@@ -3,6 +3,8 @@
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#else
+#include <unistd.h>
 #endif
 
 #include <cstdio>
@@ -37,13 +39,24 @@ int32 rl_test_dawg_build(rl_dawg& dawg, const char* wordlist_file_contents)
 	}
 	fputs(wordlist_file_contents, fp);
 	fclose(fp);
+#else
+	// Open a temporary file (mkstemp will mutate wordlist_path) write the wordlist
+	char wordlist_path[] = "/tmp/rl_test_wordlist.XXXXXX";
+	int fd = mkstemp(wordlist_path);
+	if (fd == -1)
+	{
+		return -1;
+	}
+	if (write(fd, wordlist_file_contents, strlen(wordlist_file_contents)) == -1)
+	{
+		close(fd);
+		return -1;
+	}
+	close(fd);
+#endif
 
 	// Build a DAWG from that file, assuming the rl_dawg is already initialized
 	return rl_dawg_build(dawg, wordlist_path);
-#else
-#error "Temp file writing NYI on non-Windows platforms"
-	return -1;
-#endif
 }
 
 void rl_test_rack_init(rl_rack& rack, const char* letters)

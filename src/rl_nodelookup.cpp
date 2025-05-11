@@ -42,7 +42,7 @@ void rl_nodelookup_insert(rl_nodelookup& nodelookup, uint64 signature, int32 nod
 	{
 		if (item->signature == signature)
 		{
-			printf("WARNING: Duplicate node with signature %llu\n", signature);
+			printf("WARNING: Duplicate node with signature %" PRIu64 "\n", signature);
 			return;
 		}
 		base = item;

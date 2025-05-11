@@ -72,7 +72,15 @@ float rl_distribution_compare(const rl_distribution& lhs, const rl_distribution&
 	float error = 0.0f;
 	for (int32 i = 0; i < COUNT_OF(lhs.weights); i++)
 	{
-		error += abs(rhs.weights[i] - lhs.weights[i]);
+		const float delta = rhs.weights[i] - lhs.weights[i];
+		if (delta >= 0.0f)
+		{
+			error += delta;
+		}
+		else
+		{
+			error -= delta;
+		}
 	}
 	return error;
 }

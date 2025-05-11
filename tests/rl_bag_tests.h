@@ -35,11 +35,19 @@ const char* test_bag_draw()
 	rl_bag_init(bag);
 
 	// rl_bag_draw should give us a random letter (seeds will need to be updated if default weights or the letter-picking algorithm change at all)
+#ifdef _WIN32
 	srand(0xeeee);
+#else
+	srand(0xee21);
+#endif
 	const uint8 letter_g = rl_bag_draw(bag);
 	t_assert(letter_g == 'g');
 
+#ifdef _WIN32
 	srand(0xffff);
+#else
+	srand(0xffbe);
+#endif
 	const uint8 letter_r = rl_bag_draw(bag);
 	t_assert(letter_r == 'r');
 

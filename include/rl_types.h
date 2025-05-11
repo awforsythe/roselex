@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cinttypes>
+#include <cstddef>
 
 typedef uint8_t uint8;
 typedef int32_t int32;
