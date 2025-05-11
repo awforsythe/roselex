@@ -54,3 +54,9 @@ add_executable(tests
 )
 target_link_libraries(tests PRIVATE roselex)
 add_test(NAME run_tests COMMAND tests)
+
+# Add benchmarks target
+add_executable(benchmarks
+    benchmarks/main.cpp
+)
+target_link_libraries(benchmarks PRIVATE roselex)
