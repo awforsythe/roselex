@@ -181,13 +181,6 @@ int32 rl_dawg_build(rl_dawg& dawg, const char* wordlist_path)
 		return 0;
 	}
 
-	// Estimate the number of words in the list, solely based on file size: this'll help us estimate memory requirements for parsing
-	fseek(fp, 0L, SEEK_END);
-	const int32 file_size = ftell(fp);
-	fseek(fp, 0L, SEEK_SET);
-	const int32 estimated_bytes_per_word = 7;
-	const int32 estimated_word_count = file_size / estimated_bytes_per_word;
-
 	// Initialize a context object to contain the state necessary for building the DAWG
 	rl_dawg_ctx ctx;
 	rl_dawg_ctx_init(ctx);
