@@ -310,6 +310,8 @@ int32 rl_search_board(const rl_dawg& dawg, const rl_board& board, const rl_rack&
 	ctx.dawg = &dawg;
 	ctx.board = &board;
 	memcpy(&ctx.rack, &rack, sizeof(rl_rack));
+	memset(ctx.pattern, 0, sizeof(ctx.pattern));
+	memset(ctx.s, 0, sizeof(ctx.s));
 	ctx.offset = 0;
 	ctx.blockflag_next = 0;
 	ctx.blockflag_prev = 0;
